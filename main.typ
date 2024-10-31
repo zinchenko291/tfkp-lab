@@ -192,24 +192,20 @@ for idx, c in enumerate(c_values, start=1):
 import matplotlib.pyplot as plt
 
 def koch_snowflake(iterations):
-    # Начальные точки равностороннего треугольника
     points = [[0, 0], [1, 0], [0.5, (3 ** 0.5) / 2]]
     
     def koch_segment(start, end, depth):
         if depth == 0:
             return [start, end]
 
-        # Получаем точки на сегменте
-        s = (start[0] + end[0]) / 2, (start[1] + end[1]) / 2  # Центр
-        d = ((end[0] - start[0]) / 3, (end[1] - start[1]) / 3)  # Направление
-        p1 = (start[0] + d[0], start[1] + d[1])  # 1/3 из точки начала
-        p2 = (end[0] - d[0], end[1] - d[1])      # 2/3 из точки конца
+        s = (start[0] + end[0]) / 2, (start[1] + end[1]) / 2 
+        d = ((end[0] - start[0]) / 3, (end[1] - start[1]) / 3) 
+        p1 = (start[0] + d[0], start[1] + d[1]) 
+        p2 = (end[0] - d[0], end[1] - d[1])     
 
-        # Расчет вершины нового треугольника
         peak = (s[0] + (d[1] * (3 ** 0.5) / 2), s[1] - (d[0] * (3 ** 0.5) / 2))
         return koch_segment(start, p1, depth - 1) + [peak] + koch_segment(p2, end, depth - 1)
 
-    # Генерация всей снежинки
     snowflake = []
     for i in range(3):
         start = points[i]
@@ -218,15 +214,13 @@ def koch_snowflake(iterations):
 
     return snowflake
 
-# Параметры
-iterations = 5  # Количество итераций
+iterations = 5 
 snowflake = koch_snowflake(iterations)
 
-# Визуализация фрактала
 plt.figure(figsize=(8, 8))
-x, y = zip(*snowflake)  # Распаковка координат
+x, y = zip(*snowflake)  
 plt.plot(x, y)
-plt.fill(x, y, 'b', alpha=0.5)  # Заполнение снежинки цветом
+plt.fill(x, y, 'b', alpha=0.5) 
 plt.axis('equal')
 plt.title(f"Снежинка Коха (Итерации: {iterations})")
 plt.show()
